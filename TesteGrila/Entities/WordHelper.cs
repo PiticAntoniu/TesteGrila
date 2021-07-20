@@ -34,6 +34,30 @@ namespace TesteGrila
             return itemList;
         }
 
+        internal static void Save(List<TestItem> itemList, string defaultGeneratedTest)
+        {
+            Document doc;
+            Application wordApp = new Application();
+            try
+            {
+                doc = wordApp.Documents.Open(Ct.DefaultLocation + defaultGeneratedTest, ReadOnly: false);
+
+                doc.Tables[2].Cell(2, 1).Range.Copy();
+                doc.Tables[2].Cell(2, 3).Range.Paste();
+
+                doc.Tables[2].Cell(2, 4).Range.Copy();
+                doc.Tables[2].Cell(2, 2).Range.Paste();
+
+                doc.Close(true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            wordApp.Quit();
+        }
+
         private static TestItem GetItemFromTable(Table table)
         {
             TestItem testItem = new TestItem();

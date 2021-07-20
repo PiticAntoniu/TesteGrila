@@ -1,11 +1,13 @@
-﻿namespace TesteGrila
+﻿using Microsoft.Office.Interop.Word;
+
+namespace TesteGrila
 {
     internal class Choice
     {
-        object body;
+        Range body;
         bool isCorrect;
 
-        public object Body { get => body; set => body = value; }
+        public Range Body { get => body; set => body = value; }
         public bool IsCorrect { get => isCorrect; set => isCorrect = value; }
     }
 }
