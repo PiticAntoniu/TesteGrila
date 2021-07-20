@@ -9,12 +9,24 @@ namespace TesteGrila
         internal static List<TestItem> LoadItemsFromFile(string fileLocation)
         {
             List<TestItem> itemList = new List<TestItem>();
-
+            Document doc;
             Application wordApp = new Application();
-            Document doc = wordApp.Documents.Open(fileLocation,ReadOnly:false);
+            try
+            {
+                doc = wordApp.Documents.Open(Ct.DefaultLocation + fileLocation, ReadOnly: false);
 
-//            Table 
+                Table t = doc.Tables[1];
 
+                Console.WriteLine(t.Cell(2, 3).Range.Text);
+
+                doc.Close(false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            wordApp.Quit();
             return itemList;
         }
     }

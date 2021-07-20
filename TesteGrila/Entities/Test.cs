@@ -15,12 +15,12 @@ namespace TesteGrila
 
         internal void Shuffle()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         internal void Save(string defaultGeneratedTest)
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }

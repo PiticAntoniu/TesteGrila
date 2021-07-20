@@ -11,5 +11,7 @@ namespace TesteGrila
         public static string DefaultTest = "TemplateGrila.docx";
 
         public static string DefaultGeneratedTest = "TemplateGrilaOut.docx";
+
+        public static string DefaultLocation = @"c:\temp\";
     }
 }
