@@ -42,11 +42,11 @@ namespace TesteGrila
             {
                 doc = wordApp.Documents.Open(Ct.DefaultLocation + defaultGeneratedTest, ReadOnly: false);
 
-                doc.Tables[2].Cell(2, 1).Range.Copy();
-                doc.Tables[2].Cell(2, 3).Range.Paste();
+                Range r = doc.Tables[1].Cell(2, 3).Range;
+                r = itemList[0].Choices[1].Body;
+                r.Copy();
+                doc.Tables[1].Cell(2, 4).Range.Paste();
 
-                doc.Tables[2].Cell(2, 4).Range.Copy();
-                doc.Tables[2].Cell(2, 2).Range.Paste();
 
                 doc.Close(true);
             }
