@@ -34,9 +34,10 @@ namespace TesteGrila
             // 
             // testButton
             // 
-            this.testButton.Location = new System.Drawing.Point(332, 439);
+            this.testButton.Location = new System.Drawing.Point(664, 844);
+            this.testButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(75, 23);
+            this.testButton.Size = new System.Drawing.Size(150, 44);
             this.testButton.TabIndex = 0;
             this.testButton.Text = "Push me";
             this.testButton.UseVisualStyleBackColor = true;
@@ -44,12 +45,15 @@ namespace TesteGrila
             // 
             // mainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 530);
+            this.ClientSize = new System.Drawing.Size(1658, 1019);
             this.Controls.Add(this.testButton);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "mainForm";
             this.Text = "Test generator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
+            this.Load += new System.EventHandler(this.mainForm_Load);
             this.ResumeLayout(false);
 
         }

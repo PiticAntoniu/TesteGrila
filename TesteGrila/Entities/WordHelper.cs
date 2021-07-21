@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace TesteGrila
@@ -9,53 +10,52 @@ namespace TesteGrila
         internal static List<TestItem> LoadItemsFromFile(string fileLocation)
         {
             List<TestItem> itemList = new List<TestItem>();
-            Document doc;
-            Application wordApp = new Application();
+ 
             try
             {
-                doc = wordApp.Documents.Open(Ct.DefaultLocation + fileLocation, ReadOnly: false);
-
-
-                foreach (Table table in doc.Tables)
+                
+                foreach (Table table in WordApp.GetTemplate().Tables)
                 {
                     itemList.Add(GetItemFromTable(table));
                 }
 
-
-
-                doc.Close(false);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-            wordApp.Quit();
             return itemList;
         }
 
         internal static void Save(List<TestItem> itemList, string defaultGeneratedTest)
         {
             Document doc;
-            Application wordApp = new Application();
-            try
-            {
-                doc = wordApp.Documents.Open(Ct.DefaultLocation + defaultGeneratedTest, ReadOnly: false);
+            if (File.Exists(Ct.DefaultLocation + Ct.DefaultGeneratedTest))
+                File.Delete(Ct.DefaultLocation + Ct.DefaultGeneratedTest);
+            File.Copy(Ct.DefaultLocation+Ct.DefaultTest, 
+                                Ct.DefaultLocation + Ct.DefaultGeneratedTest);
 
-                Range r = doc.Tables[1].Cell(2, 3).Range;
-                r = itemList[0].Choices[1].Body;
-                r.Copy();
-                doc.Tables[1].Cell(2, 4).Range.Paste();
+                doc = WordApp.GetWordApp().Documents.Open(Ct.DefaultLocation + defaultGeneratedTest, ReadOnly: false);
+                int index = 1;
+                foreach (var item in itemList)
+                {
+                    Table table = doc.Tables[index++];
 
+                    table.Cell(1, 1).Range.Text = item.Question;
+
+                    int column = 1;
+                    foreach (var choice in item.Choices)
+                    {
+                       // table.Cell(2, column).Range.Delete();
+                        choice.Body.Copy();
+                        table.Cell(2, column++).Range.Paste();
+                    }
+                }
 
                 doc.Close(true);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
 
-            wordApp.Quit();
+
         }
 
         private static TestItem GetItemFromTable(Table table)

@@ -19,17 +19,21 @@ namespace TesteGrila
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            //Test test = new Test(Ct.DefaultTest);
-            //test.Shuffle();
-            //test.Save(Ct.DefaultGeneratedTest);
+            Test test = new Test(Ct.DefaultTest);
+            test.Shuffle();
+            test.Save(Ct.DefaultGeneratedTest);
 
-            List<int> a = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        }
 
-            Random r = new Random();
-            foreach (int i in a.OrderBy(x => r.Next()))
-            {
-                Console.WriteLine(i);
-            }
+        private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            WordApp.GetTemplate().Close(false);
+            WordApp.GetWordApp().Quit();
+        }
+
+        private void mainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
